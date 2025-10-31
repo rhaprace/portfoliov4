@@ -6,14 +6,11 @@ import { SplitText } from "gsap/SplitText";
 import { About } from "./components/About";
 import { Projects } from "./components/Projects";
 import { SectionSeparator } from "./components/SectionSeparator";
-import { initScrollToTop } from "./utils/scrollToTop";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export const App = () => {
   useEffect(() => {
-    initScrollToTop();
-
     ScrollTrigger.config({
       limitCallbacks: true,
       syncInterval: 50,
@@ -27,7 +24,7 @@ export const App = () => {
       ScrollTrigger.refresh();
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
       clearTimeout(timer);
