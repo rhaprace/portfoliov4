@@ -99,8 +99,7 @@ export const useProjectsAnimation = () => {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [sectionRef]);
 
   return sectionRef;
 };
-
