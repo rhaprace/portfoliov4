@@ -8,7 +8,7 @@ export const OrbitalVisual = () => {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-full flex items-center justify-center"
+      className="orbital-visual relative w-full h-full flex items-center justify-center"
     >
       <div className="absolute w-[900px] h-[900px] rounded-full border border-gray-800 orbital-ring opacity-8"></div>
       <div className="absolute w-[700px] h-[700px] rounded-full border border-gray-700 orbital-ring opacity-10"></div>
