@@ -104,14 +104,10 @@ export const About = () => {
           </h2>
           <div className="space-y-6">
             <p className="about-content text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed">
-              I'm a passionate full-stack developer who loves creating beautiful and
-              functional web experiences. With expertise in modern technologies and
-              a keen eye for design, I bring ideas to life through clean code and
-              thoughtful user interfaces.
-            </p>
-            <p className="about-content text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed">
-              My approach combines technical excellence with creative problem-solving,
-              ensuring every project is both visually stunning and highly performant.
+              Hi there! I'm Rafael, a junior full-stack developer with a hobby for creating things in my mind. 
+              When I'm not coding, you'll find me exploring new technologies, Also enjoying a good cup of coffee. 
+              I'm always making myself face new challenges and learn new things. 
+              I'm a big fan of clean code and applying principles of writing maintainable and high value quality code.
             </p>
           </div>
         </div>

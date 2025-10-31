@@ -9,6 +9,18 @@ export const useOrbitalAnimation = () => {
 
     const context = gsap.context(() => {
       const orbitContainers = gsap.utils.toArray<HTMLElement>(".orbit-container");
+      const rings = gsap.utils.toArray<HTMLElement>(".orbital-ring");
+      const symbols = gsap.utils.toArray<HTMLElement>(".code-symbol");
+
+      const isAtTop = window.scrollY < 100;
+
+      if (isAtTop) {
+        gsap.set(rings, { scale: 0, opacity: 0 });
+        gsap.set(symbols, { scale: 0, opacity: 0 });
+      } else {
+        gsap.set(rings, { scale: 1, opacity: 1 });
+        gsap.set(symbols, { scale: 1, opacity: 1 });
+      }
 
       orbitContainers.forEach((container) => {
         const depth = parseInt(container.dataset.depth || "1");
@@ -53,22 +65,24 @@ export const useOrbitalAnimation = () => {
         }
       });
 
-      gsap.from(".orbital-ring", {
-        scale: 0,
-        opacity: 0,
-        duration: 1.5,
-        ease: "power2.out",
-        stagger: 0.2,
-      });
+      if (isAtTop) {
+        gsap.to(rings, {
+          scale: 1,
+          opacity: 1,
+          duration: 1.5,
+          ease: "power2.out",
+          stagger: 0.2,
+        });
 
-      gsap.from(".code-symbol", {
-        scale: 0,
-        opacity: 0,
-        duration: 1,
-        ease: "back.out(1.5)",
-        stagger: 0.1,
-        delay: 0.5,
-      });
+        gsap.to(symbols, {
+          scale: 1,
+          opacity: 1,
+          duration: 1,
+          ease: "back.out(1.5)",
+          stagger: 0.1,
+          delay: 0.5,
+        });
+      }
     }, containerRef);
 
     return () => context.revert();

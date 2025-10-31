@@ -1,3 +1,5 @@
+import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
+
 export const HeroContent = () => {
   return (
     <div className="flex flex-col justify-center h-full px-8 md:px-16 lg:px-24 max-w-7xl">
@@ -18,13 +20,32 @@ export const HeroContent = () => {
         that bring ideas to life.
       </p>
 
-      <div className="hero-cta flex gap-6 flex-wrap">
-        <button className="px-10 py-4 bg-black text-white text-lg font-semibold rounded-full hover:bg-gray-800 transition-all duration-300 hover:scale-105">
-          View My Work
-        </button>
-        <button className="px-10 py-4 border-2 border-black text-black text-lg font-semibold rounded-full hover:bg-black hover:text-white transition-all duration-300 hover:scale-105">
-          Get In Touch
-        </button>
+      <div className="hero-cta flex gap-4 flex-wrap items-center">
+        <a
+          href="https://github.com/rhaprace"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-6 py-3 bg-black text-white text-base font-semibold rounded-full hover:bg-gray-800 transition-all duration-300 hover:scale-105 flex items-center gap-2"
+        >
+          <FaGithub className="text-xl" />
+          GitHub
+        </a>
+        <a
+          href="https://linkedin.com/in/rhaprace"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-6 py-3 bg-black text-white text-base font-semibold rounded-full hover:bg-gray-800 transition-all duration-300 hover:scale-105 flex items-center gap-2"
+        >
+          <FaLinkedin className="text-xl" />
+          LinkedIn
+        </a>
+        <a
+          href="mailto:rhaprace@gmail.com"
+          className="px-6 py-3 border-2 border-black text-black text-base font-semibold rounded-full hover:bg-black hover:text-white transition-all duration-300 hover:scale-105 flex items-center gap-2"
+        >
+          <FaEnvelope className="text-xl" />
+          Email
+        </a>
       </div>
     </div>
   );
