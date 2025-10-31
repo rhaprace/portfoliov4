@@ -21,13 +21,14 @@ export const useHeroAnimation = () => {
         trigger: containerRef.current,
         start: "center top",
         end: "bottom top",
-        scrub: 1,
+        scrub: 0.5,
+        fastScrollEnd: true,
       },
     })
       .to(".hero-greeting, .hero-name, .hero-title, .hero-description, .hero-cta", {
         opacity: 0,
         y: -50,
-        stagger: 0.05,
+        stagger: 0.03,
         ease: "power2.in",
       })
       .to(".orbital-visual", { opacity: 0, scale: 0.8, ease: "power2.in" }, 0);

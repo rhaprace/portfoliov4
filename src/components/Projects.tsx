@@ -13,31 +13,33 @@ export const Projects = () => {
       gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 80%",
-          end: "top 30%",
-          scrub: 1,
+          start: "top 85%",
+          end: "top 20%",
+          scrub: 0.5,
+          fastScrollEnd: true,
         },
       })
         .fromTo(".projects-title",
           { opacity: 0, x: -100 },
-          { opacity: 1, x: 0, ease: "power3.out" }
+          { opacity: 1, x: 0, ease: "power2.out" }
         )
         .fromTo(".project-card",
-          { opacity: 0, y: 100, scale: 0.9 },
-          { opacity: 1, y: 0, scale: 1, stagger: 0.2, ease: "power3.out" },
-          "-=0.5"
+          { opacity: 0, y: 80, scale: 0.95 },
+          { opacity: 1, y: 0, scale: 1, stagger: 0.1, ease: "power2.out" },
+          "-=0.3"
         );
 
       gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "bottom 40%",
-          end: "bottom top",
-          scrub: 1,
+          start: "bottom 60%",
+          end: "bottom 20%",
+          scrub: 0.5,
+          fastScrollEnd: true,
         },
       })
         .to(".projects-title", { opacity: 0, x: 100, ease: "power2.in" })
-        .to(".project-card", { opacity: 0, y: -50, stagger: 0.1, ease: "power2.in" }, 0);
+        .to(".project-card", { opacity: 0, y: -50, stagger: 0.05, ease: "power2.in" }, 0);
     }, sectionRef);
 
     return () => ctx.revert();
