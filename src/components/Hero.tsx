@@ -1,6 +1,7 @@
 import { useHeroAnimation } from "../hooks/useHeroAnimation";
 import { HeroContent } from "./HeroContent";
-import { OrbitalVisual } from "./OrbitalVisual";
+import { CenteredOrbital } from "./CenteredOrbital";
+import { PositionedOrbital } from "./PositionedOrbital";
 import { ScrollIndicator } from "./ScrollIndicator";
 
 export const Hero = () => {
@@ -9,12 +10,12 @@ export const Hero = () => {
   return (
     <section ref={containerRef} className="h-screen w-full overflow-hidden relative">
       <div className="lg:hidden">
-        <OrbitalVisual position="top-left" size="small" />
+        <PositionedOrbital position="top-left" size="small" />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
         <HeroContent />
         <div className="hidden lg:flex items-center justify-center">
-          <OrbitalVisual withSymbols showCenter />
+          <CenteredOrbital withSymbols showCenter />
         </div>
       </div>
       <ScrollIndicator />

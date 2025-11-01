@@ -1,9 +1,4 @@
-interface OrbitalRingProps {
-  size?: number;
-  opacity?: number;
-  variant?: "center" | "positioned";
-  borderColor?: string;
-}
+import type { OrbitalRingProps } from "../types/orbital";
 
 export const OrbitalRing = ({
   size = 100,

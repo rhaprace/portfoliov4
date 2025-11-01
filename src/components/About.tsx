@@ -1,6 +1,6 @@
 import { useAboutAnimation } from "../hooks/useAboutAnimation";
 import profileImage from "../assets/profile.jpg";
-import { OrbitalVisual } from "./OrbitalVisual";
+import { PositionedOrbital } from "./PositionedOrbital";
 
 export const About = () => {
   const sectionRef  = useAboutAnimation();
@@ -10,7 +10,7 @@ export const About = () => {
       ref={sectionRef}
       className="min-h-screen w-full flex items-center py-20 md:py-32 relative overflow-hidden bg-white">
 
-      <OrbitalVisual position="right" size="large" />
+      <PositionedOrbital position="right" size="large" />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 w-full items-center px-8 md:px-16 gap-16 md:gap-24 lg:gap-32 relative z-10">
         <div className="about-image flex justify-center lg:justify-end py-8 lg:py-0">

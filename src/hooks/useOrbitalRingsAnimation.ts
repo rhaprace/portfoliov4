@@ -3,27 +3,40 @@ import { gsap } from "gsap";
 
 export const useOrbitalRingsAnimation = (
   containerRef: React.RefObject<HTMLDivElement | null>,
-  size: "large" | "small"
+  size: "large" | "small",
+  desktopOnly: boolean = false
 ) => {
   useEffect(() => {
     if (!containerRef.current) return;
 
     const context = gsap.context(() => {
-      const rings = gsap.utils.toArray<HTMLElement>(".orbital-ring");
+      const mm = gsap.matchMedia();
 
-      rings.forEach((ring, index) => {
-        const duration = size === "small" ? 25 + index * 10 : 40 + index * 15;
+      const animateRings = () => {
+        const rings = gsap.utils.toArray<HTMLElement>(".orbital-ring");
 
-        gsap.to(ring, {
-          rotation: 360,
-          duration: duration,
-          ease: "none",
-          repeat: -1,
+        rings.forEach((ring, index) => {
+          const duration = size === "small" ? 25 + index * 10 : 40 + index * 15;
+
+          gsap.to(ring, {
+            rotation: 360,
+            duration: duration,
+            ease: "none",
+            repeat: -1,
+          });
         });
-      });
+      };
+
+      if (desktopOnly) {
+        mm.add("(min-width: 1024px)", () => {
+          animateRings();
+        });
+      } else {
+        animateRings();
+      }
     }, containerRef);
 
     return () => context.revert();
-  }, [containerRef, size]);
+  }, [containerRef, size, desktopOnly]);
 };
 

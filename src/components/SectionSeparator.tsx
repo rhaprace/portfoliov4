@@ -1,6 +1,10 @@
+import { useSeparatorAnimation } from "../hooks/useSeparatorAnimation";
+
 export const SectionSeparator = () => {
+  const separatorRef = useSeparatorAnimation();
+
   return (
-    <div className="w-full relative h-12 overflow-hidden">
+    <div ref={separatorRef} className="w-full relative h-12 overflow-hidden z-40">
       <div className="absolute top-0 left-0 right-0 h-1/2 bg-white"></div>
       <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-white"></div>
       <svg

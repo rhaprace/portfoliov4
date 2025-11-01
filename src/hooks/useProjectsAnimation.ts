@@ -78,21 +78,40 @@ export const useProjectsAnimation = () => {
           mobileTimeline
             .to(titleElement, { opacity: 1, y: 0, ease: "power2.out" }, 0)
             .to(activeIndicator, { scaleX: 1, ease: "power2.out" }, 0);
+
+          images.forEach((image) => {
+            gsap.set(image as HTMLElement, { opacity: 0, y: 40 });
+
+            gsap.to(image as HTMLElement, {
+              opacity: 1,
+              y: 0,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: image as HTMLElement,
+                start: "top 85%",
+                end: "top 60%",
+                scrub: 0.5,
+                fastScrollEnd: true,
+              },
+            });
+          });
         });
 
-        images.forEach((image, imgIndex) => {
-          const speed = 1 + imgIndex * 0.2;
+        mm.add("(min-width: 1024px)", () => {
+          images.forEach((image, imgIndex) => {
+            const speed = 1 + imgIndex * 0.2;
 
-          gsap.to(image as HTMLElement, {
-            y: () => -80 * speed,
-            ease: "none",
-            scrollTrigger: {
-              trigger: projectElement,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 0.3,
-              fastScrollEnd: true,
-            },
+            gsap.to(image as HTMLElement, {
+              y: () => -80 * speed,
+              ease: "none",
+              scrollTrigger: {
+                trigger: projectElement,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 0.3,
+                fastScrollEnd: true,
+              },
+            });
           });
         });
       });
