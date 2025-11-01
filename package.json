@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "logs": "node scripts/view-logs.js",
-    "logs:clean": "node scripts/clean-logs.js"
+    "logs:clear": "node scripts/clear-all-logs.js"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
