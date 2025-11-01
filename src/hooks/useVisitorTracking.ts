@@ -114,6 +114,9 @@ export const useVisitorTracking = () => {
           return;
         }
 
+        markVisitorAsTracked();
+        hasTracked.current = true;
+
         const timestamp = new Date().toISOString();
         const page = window.location.pathname + window.location.search;
         const referrer = document.referrer || TRACKING_CONFIG.defaultValues.referrer;
@@ -136,9 +139,6 @@ export const useVisitorTracking = () => {
           }),
           keepalive: true,
         });
-
-        markVisitorAsTracked();
-        hasTracked.current = true;
       } catch (error) {
         console.debug('Tracking failed:', error);
       }
