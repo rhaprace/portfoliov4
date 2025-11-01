@@ -33,8 +33,7 @@ jobs:
 
       - name: Build
         env:
-          VITE_GITHUB_TOKEN: ${{ secrets.VISITOR_TRACKING_TOKEN }}
-          VITE_GIST_ID: ${{ secrets.VISITOR_GIST_ID }}
+          VITE_TRACKING_API_ENDPOINT: ${{ secrets.TRACKING_API_ENDPOINT }}
         run: npm run build
 
       - name: Add .nojekyll file
