@@ -1,20 +1,27 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { projects } from "../data/projects";
+import { projects } from "../utils/dataCache";
 
 export const useProjectsAnimation = () => {
   const sectionRef = useRef<HTMLElement>(null);
+
+  const projectSelectors = useMemo(() => {
+    return projects.map((project) => ({
+      id: project.id,
+      projectElement: `.project-${project.id}`,
+      titleElement: `.project-${project.id}-title`,
+      activeIndicator: `.project-${project.id}-indicator`,
+      imagesSelector: `.project-${project.id}-image`,
+    }));
+  }, []); // Empty deps - projects are frozen and never change (no re-render)
 
   useEffect(() => {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      projects.forEach((project) => {
-        const projectElement = `.project-${project.id}`;
-        const titleElement = `${projectElement}-title`;
-        const activeIndicator = `${projectElement}-indicator`;
-        const images = gsap.utils.toArray(`${projectElement}-image`);
+      projectSelectors.forEach(({ projectElement, titleElement, activeIndicator, imagesSelector }) => {
+        const images = gsap.utils.toArray(imagesSelector);
 
         gsap.set(activeIndicator, { transformOrigin: "left center" });
 
@@ -118,7 +125,7 @@ export const useProjectsAnimation = () => {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [sectionRef]);
+  }, [projectSelectors]); // Only re-run if selectors change (they won't)
 
   return sectionRef;
 };

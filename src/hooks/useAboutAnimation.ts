@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { SplitText } from "gsap/SplitText";
+import { SCROLL_TRIGGER_CONFIGS, EASING, STAGGER } from "../utils/animationConfigs";
 
 export const useAboutAnimation = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -27,37 +28,31 @@ export const useAboutAnimation = () => {
     gsap.timeline({
       scrollTrigger: {
         trigger: section,
-        start: "top 85%",
-        end: "top 20%",
-        scrub: 0.5,
-        fastScrollEnd: true,
+        ...SCROLL_TRIGGER_CONFIGS.entrance,
       },
     })
-      .to(image, { opacity: 1, ease: "power2.out" })
+      .to(image, { opacity: 1, ease: EASING.smooth })
       .to(titleSplit.words, {
         opacity: 1,
         y: 0,
-        stagger: 0.03,
-        ease: "power2.out"
+        stagger: STAGGER.tight,
+        ease: EASING.smooth
       }, "-=0.3")
       .to(
         contentSplits.flatMap((split) => split.lines),
-        { opacity: 1, y: 0, stagger: 0.05, ease: "power3.out" },
+        { opacity: 1, y: 0, stagger: STAGGER.normal, ease: EASING.strong },
         "-=0.3"
       );
     gsap.timeline({
       scrollTrigger: {
         trigger: section,
-        start: "bottom 60%",
-        end: "bottom 20%",
-        scrub: 0.5,
-        fastScrollEnd: true,
+        ...SCROLL_TRIGGER_CONFIGS.exit,
       },
     })
-      .to(image, { opacity: 0, ease: "bounce.inOut" })
+      .to(image, { opacity: 0, ease: EASING.bounce })
       .to(
         [titleSplit.words, ...contentSplits.flatMap((split) => split.lines)],
-        { opacity: 0, y: -50, ease: "bounce.inOut" },
+        { opacity: 0, y: -50, ease: EASING.bounce },
         0
       );
 

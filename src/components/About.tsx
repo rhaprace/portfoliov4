@@ -1,9 +1,12 @@
+import { memo } from "react";
 import { useAboutAnimation } from "../hooks/useAboutAnimation";
 import profileImage from "../assets/profile.jpg";
 import { PositionedOrbital } from "./PositionedOrbital";
+import { SectionTitle } from "./SectionTitle";
+import { Paragraph } from "./Paragraph";
 
-export const About = () => {
-  const sectionRef  = useAboutAnimation();
+export const About = memo(() => {
+  const sectionRef = useAboutAnimation();
 
   return (
     <section
@@ -29,25 +32,29 @@ export const About = () => {
               <img
                 src={profileImage}
                 alt="Profile"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
             </div>
           </div>
         </div>
         <div className="about-content-wrapper py-8 lg:py-0">
-          <h2 className="about-title text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-none">
+          <SectionTitle className="about-title mb-8">
             About Me
-          </h2>
+          </SectionTitle>
           <div className="space-y-6">
-            <p className="about-content text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed">
-              Hi there! I'm Rafael, a junior full-stack developer with a hobby for creating things in my mind. 
-              When I'm not coding, you'll find me exploring new technologies, Also enjoying a good cup of coffee. 
-              I'm always making myself face new challenges and learn new things. 
+            <Paragraph className="about-content">
+              Hi there! I'm Rafael, a junior full-stack developer with a hobby for creating things in my mind.
+              When I'm not coding, you'll find me exploring new technologies, Also enjoying a good cup of coffee.
+              I'm always making myself face new challenges and learn new things.
               I'm a big fan of clean code and applying principles of writing maintainable and high value quality code.
-            </p>
+            </Paragraph>
           </div>
         </div>
       </div>
     </section>
   );
-};
+});
+
+About.displayName = "About";

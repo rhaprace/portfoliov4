@@ -1,10 +1,11 @@
+import { memo } from "react";
 import type { OrbitalRingProps } from "../types/orbital";
 
-export const OrbitalRing = ({
+export const OrbitalRing = memo(({
   size = 100,
   opacity = 1,
   variant = "positioned",
-  borderColor = "border-black",
+  borderColor = "border-gray-300",
 }: OrbitalRingProps) => {
   if (variant === "center") {
     return (
@@ -29,4 +30,6 @@ export const OrbitalRing = ({
       }}
     ></div>
   );
-};
+});
+
+OrbitalRing.displayName = "OrbitalRing";

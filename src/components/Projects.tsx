@@ -1,16 +1,18 @@
-import { projects } from "../data/projects";
+import { memo } from "react";
+import { projects } from "../utils/dataCache";
 import { useProjectsAnimation } from "../hooks/useProjectsAnimation";
 import { SectionSeparator } from "./SectionSeparator";
+import { SectionTitle } from "./SectionTitle";
 
-export const Projects = () => {
+export const Projects = memo(() => {
   const sectionRef = useProjectsAnimation();
 
   return (
     <section ref={sectionRef} className="w-full bg-white overflow-hidden">
       <div className="px-8 md:px-16 py-20">
-        <h2 className="text-6xl md:text-8xl font-black mb-20 leading-none">
+        <SectionTitle className="mb-20">
           Projects
-        </h2>
+        </SectionTitle>
       </div>
 
       {projects.map((project, index) => (
@@ -67,5 +69,7 @@ export const Projects = () => {
       ))}
     </section>
   );
-};
+});
+
+Projects.displayName = "Projects";
 

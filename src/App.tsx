@@ -4,6 +4,7 @@ import { Hero } from "./components/Hero";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { About } from "./components/About";
+import { Experience } from "./components/Experience";
 import { Projects } from "./components/Projects";
 import { SectionSeparator } from "./components/SectionSeparator";
 
@@ -37,6 +38,8 @@ export const App = () => {
       <Hero />
       <SectionSeparator />
       <About />
+      <SectionSeparator />
+      <Experience />
       <SectionSeparator />
       <Projects />
     </main>

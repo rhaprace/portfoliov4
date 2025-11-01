@@ -1,3 +1,4 @@
+import { memo } from "react";
 import type { CodeSymbol as CodeSymbolType } from "../data/symbols";
 
 interface CodeSymbolProps {
@@ -6,7 +7,7 @@ interface CodeSymbolProps {
   size: number;
 }
 
-export const CodeSymbol = ({ symbol, size }: CodeSymbolProps) => {
+export const CodeSymbol = memo(({ symbol, size }: CodeSymbolProps) => {
   return (
     <div
       className="font-mono font-black flex items-center justify-center text-black opacity-80"
@@ -18,5 +19,7 @@ export const CodeSymbol = ({ symbol, size }: CodeSymbolProps) => {
       {symbol}
     </div>
   );
-};
+});
+
+CodeSymbol.displayName = "CodeSymbol";
 
