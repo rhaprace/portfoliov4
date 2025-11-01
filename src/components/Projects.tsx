@@ -3,6 +3,8 @@ import { projects } from "../utils/dataCache";
 import { useProjectsAnimation } from "../hooks/useProjectsAnimation";
 import { SectionSeparator } from "./SectionSeparator";
 import { SectionTitle } from "./SectionTitle";
+import { FiExternalLink, FiGithub } from "react-icons/fi";
+import { ImageContainer } from "./ImageContainer";
 
 export const Projects = memo(() => {
   const sectionRef = useProjectsAnimation();
@@ -35,7 +37,7 @@ export const Projects = memo(() => {
                   <p className="text-base md:text-lg text-gray-600 mb-8 max-w-md leading-relaxed">
                     {project.description}
                   </p>
-                  <div className="flex gap-2 flex-wrap">
+                  <div className="flex gap-2 flex-wrap mb-8">
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
@@ -45,26 +47,52 @@ export const Projects = memo(() => {
                       </span>
                     ))}
                   </div>
+                  {(project.liveUrl || project.repoUrl) && (
+                    <div className="flex gap-4 flex-wrap">
+                      {project.liveUrl && (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white text-sm font-semibold rounded-lg hover:bg-gray-800 transition-colors"
+                        >
+                          <FiExternalLink className="w-4 h-4" />
+                          Live Demo
+                        </a>
+                      )}
+                      {project.repoUrl && (
+                        <a
+                          href={project.repoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-6 py-3 border-2 border-black text-black text-sm font-semibold rounded-lg hover:bg-black hover:text-white transition-colors"
+                        >
+                          <FiGithub className="w-4 h-4" />
+                          View Code
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
 
               <div className={`project-${project.id}-images px-8 md:px-16 lg:pr-16 lg:pl-8 space-y-6 md:space-y-8 lg:space-y-12 pb-8 lg:pb-20`}>
-                {Array.from({ length: project.images }).map((_, imgIndex) => (
-                  <div
-                    key={imgIndex}
-                    className={`project-${project.id}-image w-full aspect-[16/10] md:aspect-[4/3] lg:aspect-[3/2] bg-gray-100 overflow-hidden rounded-2xl shadow-lg`}
-                  >
-                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-200">
-                      <span className="text-gray-300 text-2xl md:text-3xl lg:text-4xl font-black">
-                        {project.id}.{imgIndex + 1}
-                      </span>
-                    </div>
+                {project.images.map((imageSrc, imgIndex) => (
+                  <div key={imgIndex} className={`project-${project.id}-image`}>
+                    <ImageContainer
+                      src={imageSrc}
+                      alt={`${project.title} screenshot ${imgIndex + 1}`}
+                    />
                   </div>
                 ))}
               </div>
             </div>
           </div>
-          {index < projects.length - 1 && <SectionSeparator />}
+          {index < projects.length - 1 && (
+            <div className={`project-${project.id}-separator`}>
+              <SectionSeparator />
+            </div>
+          )}
         </div>
       ))}
     </section>
