@@ -7,10 +7,13 @@ import { About } from "./components/About";
 import { Experience } from "./components/Experience";
 import { Projects } from "./components/Projects";
 import { SectionSeparator } from "./components/SectionSeparator";
+import { useVisitorTracking } from "./hooks/useVisitorTracking";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export const App = () => {
+  useVisitorTracking();
+
   useEffect(() => {
     ScrollTrigger.config({
       limitCallbacks: true,

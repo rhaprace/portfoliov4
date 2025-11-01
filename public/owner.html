@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Owner Settings</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fafafa;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .container {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 32px;
+      max-width: 480px;
+      width: 100%;
+    }
+    
+    h1 {
+      font-size: 20px;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    
+    .subtitle {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+    
+    .status {
+      padding: 12px 16px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      border: 1px solid;
+    }
+    
+    .status.enabled {
+      background: #f6fef9;
+      color: #0f5132;
+      border-color: #badbcc;
+    }
+    
+    .status.disabled {
+      background: #fff5f5;
+      color: #842029;
+      border-color: #f1aeb5;
+    }
+    
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    
+    button {
+      flex: 1;
+      background: #1a1a1a;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    button:hover {
+      background: #333;
+    }
+    
+    button.secondary {
+      background: white;
+      color: #1a1a1a;
+      border: 1px solid #d0d0d0;
+    }
+    
+    button.secondary:hover {
+      background: #f5f5f5;
+    }
+    
+    .info {
+      background: #f9f9f9;
+      border: 1px solid #e5e5e5;
+      border-radius: 4px;
+      padding: 14px;
+      margin-bottom: 20px;
+    }
+    
+    .info-title {
+      color: #1a1a1a;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .info ul {
+      color: #666;
+      margin-left: 18px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    
+    .info li {
+      margin: 3px 0;
+    }
+    
+    .back-link {
+      display: block;
+      text-align: center;
+      color: #666;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    
+    .back-link:hover {
+      color: #1a1a1a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Owner Settings</h1>
+    <p class="subtitle">Exclude your visits from analytics</p>
+    
+    <div id="status" class="status"></div>
+    
+    <div class="buttons">
+      <button onclick="enableOwnerMode()">Enable</button>
+      <button class="secondary" onclick="disableOwnerMode()">Disable</button>
+    </div>
+    
+    <div class="info">
+      <div class="info-title">How it works</div>
+      <ul>
+        <li>Saves a flag in browser localStorage</li>
+        <li>Prevents tracking on this device/browser</li>
+        <li>Enable on each device you use</li>
+        <li>Resets if you clear browser data</li>
+      </ul>
+    </div>
+
+    <div class="info">
+      <div class="info-title">Privacy notice</div>
+      <ul>
+        <li>No IP addresses are collected</li>
+        <li>Only basic visit data (page, referrer, browser)</li>
+        <li>No personal information stored</li>
+        <li>No cookies used</li>
+      </ul>
+    </div>
+    
+    <a href="/" class="back-link">← Back to portfolio</a>
+  </div>
+
+  <script>
+    function updateStatus() {
+      const isOwner = localStorage.getItem('portfolio_owner') === 'true';
+      const statusEl = document.getElementById('status');
+      
+      if (isOwner) {
+        statusEl.className = 'status enabled';
+        statusEl.textContent = '✓ Owner mode enabled - visits not tracked';
+      } else {
+        statusEl.className = 'status disabled';
+        statusEl.textContent = '✗ Owner mode disabled - visits are tracked';
+      }
+    }
+    
+    function enableOwnerMode() {
+      localStorage.setItem('portfolio_owner', 'true');
+      updateStatus();
+    }
+    
+    function disableOwnerMode() {
+      localStorage.removeItem('portfolio_owner');
+      updateStatus();
+    }
+    
+    updateStatus();
+  </script>
+</body>
+</html>
+

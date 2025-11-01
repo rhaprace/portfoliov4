@@ -7,6 +7,11 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Visitor tracking logs (PRIVATE - DO NOT COMMIT)
+visitor-logs.txt
+visitor-logs.csv
+*.visitor-log
+
 node_modules
 dist
 dist-ssr
@@ -22,3 +27,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment variables (contains secret keys)
+.env
+.env.local
+.env.production
+.env.development
+
+# Vercel
+.vercel
