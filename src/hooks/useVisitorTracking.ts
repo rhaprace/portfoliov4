@@ -13,6 +13,24 @@
  */
 import { useEffect, useRef } from 'react';
 
+const TRACKING_CONFIG = {
+  delay: 1500,
+  filename: 'visitor-logs.csv',
+  csvHeader: 'Timestamp,Page,Referrer,UserAgent,Screen,Language\n',
+  ownerKey: 'portfolio_owner',
+  defaultValues: {
+    referrer: 'direct',
+    userAgent: 'unknown',
+    language: 'unknown',
+  },
+} as const;
+
+const LOCALHOST_HOSTNAMES = ['localhost', '127.0.0.1'];
+
+const isLocalhost = () => LOCALHOST_HOSTNAMES.includes(window.location.hostname);
+
+const isOwnerVisit = () => localStorage.getItem(TRACKING_CONFIG.ownerKey) === 'true';
+
 export const useVisitorTracking = () => {
   const hasTracked = useRef(false);
 
@@ -21,13 +39,12 @@ export const useVisitorTracking = () => {
 
     const trackVisitor = async () => {
       try {
-        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        if (isLocalhost()) {
           console.debug('Tracking disabled: localhost');
           return;
         }
 
-        const isOwner = localStorage.getItem('portfolio_owner') === 'true';
-        if (isOwner) {
+        if (isOwnerVisit()) {
           console.debug('Tracking disabled: Owner visit');
           return;
         }
@@ -42,10 +59,10 @@ export const useVisitorTracking = () => {
 
         const timestamp = new Date().toISOString();
         const page = window.location.pathname + window.location.search;
-        const referrer = document.referrer || 'direct';
-        const userAgent = navigator.userAgent || 'unknown';
+        const referrer = document.referrer || TRACKING_CONFIG.defaultValues.referrer;
+        const userAgent = navigator.userAgent || TRACKING_CONFIG.defaultValues.userAgent;
         const screenSize = `${window.screen.width}x${window.screen.height}`;
-        const language = navigator.language || 'unknown';
+        const language = navigator.language || TRACKING_CONFIG.defaultValues.language;
 
         const logEntry = `${timestamp},${page},"${referrer}","${userAgent}",${screenSize},${language}\n`;
 
@@ -62,8 +79,7 @@ export const useVisitorTracking = () => {
         }
 
         const gist = await response.json();
-        const filename = 'visitor-logs.csv';
-        const currentContent = gist.files[filename]?.content || 'Timestamp,Page,Referrer,UserAgent,Screen,Language\n';
+        const currentContent = gist.files[TRACKING_CONFIG.filename]?.content || TRACKING_CONFIG.csvHeader;
 
         await fetch(`https://api.github.com/gists/${gistId}`, {
           method: 'PATCH',
@@ -74,7 +90,7 @@ export const useVisitorTracking = () => {
           },
           body: JSON.stringify({
             files: {
-              [filename]: {
+              [TRACKING_CONFIG.filename]: {
                 content: currentContent + logEntry,
               },
             },
@@ -88,7 +104,7 @@ export const useVisitorTracking = () => {
       }
     };
 
-    const timeoutId = setTimeout(trackVisitor, 1500);
+    const timeoutId = setTimeout(trackVisitor, TRACKING_CONFIG.delay);
 
     return () => clearTimeout(timeoutId);
   }, []);

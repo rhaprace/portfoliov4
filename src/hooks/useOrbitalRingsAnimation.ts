@@ -1,6 +1,14 @@
 import { useEffect } from "react";
 import { gsap } from "gsap";
 
+const ROTATION_DURATION = {
+  small: { base: 25, increment: 10 },
+  large: { base: 40, increment: 15 },
+} as const;
+
+const FULL_ROTATION = 360;
+const DESKTOP_BREAKPOINT = "(min-width: 1024px)";
+
 export const useOrbitalRingsAnimation = (
   containerRef: React.RefObject<HTMLDivElement | null>,
   size: "large" | "small",
@@ -14,13 +22,14 @@ export const useOrbitalRingsAnimation = (
 
       const animateRings = () => {
         const rings = gsap.utils.toArray<HTMLElement>(".orbital-ring");
+        const config = ROTATION_DURATION[size];
 
         rings.forEach((ring, index) => {
-          const duration = size === "small" ? 25 + index * 10 : 40 + index * 15;
+          const duration = config.base + index * config.increment;
 
           gsap.to(ring, {
-            rotation: 360,
-            duration: duration,
+            rotation: FULL_ROTATION,
+            duration,
             ease: "none",
             repeat: -1,
           });
@@ -28,7 +37,7 @@ export const useOrbitalRingsAnimation = (
       };
 
       if (desktopOnly) {
-        mm.add("(min-width: 1024px)", () => {
+        mm.add(DESKTOP_BREAKPOINT, () => {
           animateRings();
         });
       } else {

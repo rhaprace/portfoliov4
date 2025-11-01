@@ -6,10 +6,16 @@ import { SplitText } from "gsap/SplitText";
 import { About } from "./components/About";
 import { Experience } from "./components/Experience";
 import { Projects } from "./components/Projects";
+import { Footer } from "./components/Footer";
 import { SectionSeparator } from "./components/SectionSeparator";
 import { useVisitorTracking } from "./hooks/useVisitorTracking";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
+
+const SCROLL_TRIGGER_CONFIG = {
+  syncInterval: 50,
+  refreshDelay: 100,
+} as const;
 
 export const App = () => {
   useVisitorTracking();
@@ -17,12 +23,12 @@ export const App = () => {
   useEffect(() => {
     ScrollTrigger.config({
       limitCallbacks: true,
-      syncInterval: 50,
+      syncInterval: SCROLL_TRIGGER_CONFIG.syncInterval,
     });
 
     const timer = setTimeout(() => {
       ScrollTrigger.refresh();
-    }, 100);
+    }, SCROLL_TRIGGER_CONFIG.refreshDelay);
 
     const handleResize = () => {
       ScrollTrigger.refresh();
@@ -37,14 +43,17 @@ export const App = () => {
   }, []);
 
   return (
-    <main>
-      <Hero />
-      <SectionSeparator />
-      <About />
-      <SectionSeparator />
-      <Experience />
-      <SectionSeparator />
-      <Projects />
-    </main>
+    <>
+      <main>
+        <Hero />
+        <SectionSeparator />
+        <About />
+        <SectionSeparator />
+        <Experience />
+        <SectionSeparator />
+        <Projects />
+      </main>
+      <Footer />
+    </>
   );
 };
